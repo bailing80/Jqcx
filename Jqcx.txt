@@ -1,0 +1,82 @@
+1、首先建立一个xml文件写入sql语句  在model中写一个bean类(模型类)
+
+2、然后在Mapper中写一个Mapper接口继承AutoMapper<T>  在接口中创建对应id的接口方法(参数)  名字相同  
+
+3、在service 文件夹中创建一个service接口 接口继承IBaseService<T> 在接口中创建对应id的接口方法(参数)  名字相同
+
+4、1)在impl文件夹中创建对应的impl类 代码中类上写@Service(value="xxxxxService（接口）")  该类继承   SuperServiceImpl<xxxxMapper,T(model)> 实现xxxxxService接口
+   2)在代码中写  @Autowired    private  xxxxxMapper  接口名
+		 重写的方法   方法中使用mapper中的增删改查的方法
+5、在JQiCar中的controller中  写xxxxcontroller类:
+	1) @Controller
+	   @RequestMapping("/xxxxxxService")
+	2)主代码中:
+		private xxxxxxService 接口名 
+		RequestMapping("xxxxxxxxx(最好与方法名相同)")
+		RequestBody
+		方法：
+			public  返回类型  方法名{
+			
+			
+			
+			}		
+					------例子在下面
+
+6、在provider中的dubbo-provider.xml  配置声明需要暴露的服务接口
+	<!-- 声明需要暴露的服务接口 -->
+	<dubbo:provider delay="-1" timeout="10000" retries="0"/><!-- 全局超时,重试机制 -->
+	<dubbo:service interface="com.xm.xmap1702044.service.TokenManager" ref="manager" loadbalance="roundrobin" mock="return null"  registry="server"/>
+	<dubbo:service interface="com.test.demo.service.FoodEncyService" ref="FoodEncyService" loadbalance="roundrobin" mock="return null"  registry="server"/>
+
+7、在consumer里的dubbo-constumer.xml  配置使用zookeeper注册中心的暴露服务地址
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<dubbo:registry address="zookeeper://127.0.0.1:2181" />
+	<dubbo:reference id="manager" interface="com.xm.xmap1702044.service.TokenManager" check="false"/>
+	<dubbo:reference id="FoodEncyService" interface="com.test.demo.service.FoodEncyService" check="false"/>
+
+
+
+
+eg:
+
+
+package com.xm.xmap1702044.controller;
+
+
+import com.test.demo.model.FoodEncy;
+import com.test.demo.service.FoodEncyService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
+
+
+/**
+ * @autho  
+ * @create 2018年
+ * @desc
+ **/
+@Controller
+@RequestMapping("/FoodEncyService")
+public class FoodEncyController {
+    @Autowired
+    private FoodEncyService foodEncyService;
+
+    @RequestMapping(value = "manageList")
+    @ResponseBody
+    public List<FoodEncy> manageList(String type) throws Exception{
+        List<FoodEncy> list=null;
+        try {
+            list = foodEncyService.queryType(type);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+
+}
+
+	

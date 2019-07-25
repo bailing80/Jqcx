@@ -1,0 +1,36 @@
+package com.xm.xmap1702044.controller;
+
+
+import com.test.demo.model.FoodEncy;
+import com.test.demo.service.FoodEncyService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
+
+
+/**
+ * @autho xuzhiyuan
+ * @create 2018年7月17日16:18:22
+ * @desc
+ **/
+@Controller
+@RequestMapping("/FoodEncyService")
+public class FoodEncyController {
+    @Autowired
+    private FoodEncyService foodEncyService;
+
+    @RequestMapping(value = "manageList")
+    @ResponseBody
+    public List<FoodEncy> manageList(String type) throws Exception{
+        List<FoodEncy> list=null;
+        try {
+            list = foodEncyService.queryType(type);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+}

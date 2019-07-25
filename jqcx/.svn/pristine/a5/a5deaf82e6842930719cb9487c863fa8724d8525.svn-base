@@ -1,0 +1,55 @@
+package com.test.demo.service.impl;
+
+import com.baomidou.framework.service.impl.SuperServiceImpl;
+import com.test.demo.mapper.FoodEncyMapper;
+import com.test.demo.model.FoodEncy;
+import com.test.demo.service.FoodEncyService;
+import com.xm.xmap1702044.base.PageManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/**
+ * @author xuzhiyuan
+ * @create 2018年7月17日17:03:32
+ * @desc
+ **/
+@Service(value = "FoodEncyService")
+public class FoodEncyServiceImpl extends SuperServiceImpl<FoodEncyMapper,FoodEncy> implements FoodEncyService {
+
+@Autowired
+private FoodEncyMapper foodEncyMapper;
+
+
+        @Override
+        public List<FoodEncy> queryType(String type) {
+                List<FoodEncy> list =foodEncyMapper.queryType(type);
+                return list;
+        }
+
+        @Override
+        public PageManager query(FoodEncy foodEncy, PageManager page) {
+                return null;
+        }
+
+        @Override
+        public FoodEncy get(FoodEncy foodEncy) {
+                return null;
+        }
+
+        @Override
+        public int save(FoodEncy foodEncy) {
+                return 0;
+        }
+
+        @Override
+        public int update(FoodEncy foodEncy) {
+                return 0;
+        }
+
+        @Override
+        public int delete(FoodEncy foodEncy) {
+                return 0;
+        }
+}

@@ -1,0 +1,35 @@
+#------------ Task ------------
+task.core_pool_size=2
+task.max_pool_size=4
+task.queue_capacity=10
+task.keep_alive_seconds=60
+
+#----- web hook password ------
+git.hook.pwd=
+git.hook.script_path=
+
+#--------- database -----------
+db.master.url=jdbc:mysql://127.0.0.1:3306/xmap1702044?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&useSSL=false&allowMultiQueries=true
+db.master.user=xmap1702044
+db.master.password=5Mg4JOIQZ37awybTbqzJ
+
+#db.master.url=jdbc:mysql://127.0.0.1:3306/xmap1702044?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&useSSL=false&allowMultiQueries=true
+#db.master.user=root
+#db.master.password=root
+########################################################
+#jdbc settings
+jdbc.dirverClass=com.mysql.jdbc.Driver
+#offline
+#jdbc.url=jdbc:mysql://192.168.5.174:3306/wechat?useUnicode=true&characterEncoding=UTF-8
+#jdbc.username=tramount
+#jdbc.password=123
+#online-localhost
+
+
+#online-test
+security.aes.key=5bb69590a91a827f
+#timeout 1000*60*60*8
+session.timeout=28800000
+
+api.url=https://wechatsync.youboy.com
+########################################################

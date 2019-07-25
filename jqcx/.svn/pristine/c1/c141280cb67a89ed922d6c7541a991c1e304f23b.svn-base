@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:aop="http://www.springframework.org/schema/aop" xmlns:task="http://www.springframework.org/schema/task"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
+
+	<!-- 将多个配置文件读取到容器中，交给Spring管理 -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:config/*.properties</value>
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- aspectj aop启用CGliB代理 -->
+	<aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true"/>
+	<context:annotation-config/>
+	<context:component-scan base-package="com.xm.xmap1702044.service;com.xm.xmap1702044.model;com.xm.xmap1702044.dto;com.xm.xmap1702044.mongo.dao"/>
+
+	<mvc:annotation-driven/>
+	<!-- aspectj aop启用CGliB代理 -->
+	<aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true"/>
+	<context:component-scan base-package="com.xm.xmap1702044.scan;com.xm.xmap1702044.service;com.xm.xmap1702044.mapper;com.xm.xmap1702044.dto;com.xm.xmap1702044.mongo.dao;com.xm.xmap1702044.mongo.dao.impl"/>
+
+	<import resource="classpath:spring/dubbo-provider.xml" />
+	<import resource="classpath:spring/spring-mybatis.xml" />
+
+	<bean id="taskExecutorProvider" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<!-- 核心线程数 -->
+		<property name="corePoolSize" value="${task.core_pool_size}" />
+		<!-- 最大线程数 -->
+		<property name="maxPoolSize" value="${task.max_pool_size}" />
+		<!-- 队列最大长度 -->
+		<property name="queueCapacity" value="${task.queue_capacity}" />
+		<!-- 线程池维护线程所允许的空闲时间，默认为60s -->
+		<property name="keepAliveSeconds" value="${task.keep_alive_seconds}" />
+	</bean>
+
+	<!-- 注解式 -->
+	<task:annotation-driven executor="taskExecutorProvider" proxy-target-class="true"/>
+</beans>

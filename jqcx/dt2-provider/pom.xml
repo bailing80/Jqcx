@@ -1,0 +1,279 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.xmwm</groupId>
+		<artifactId>dt2</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>dt2-provider</artifactId>
+	<packaging>jar</packaging>
+	<name>dt2-provider</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.alipay</groupId>
+			<artifactId>alipay-sdk-java</artifactId>
+			<version>2017120116035</version>
+		</dependency>
+		<dependency>
+			<groupId>com.xmwm</groupId>
+			<artifactId>dt2-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>io.codis.jodis</groupId>
+			<artifactId>jodis</artifactId>
+			<version>0.3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.wandoulabs.jodis</groupId>
+			<artifactId>jodis</artifactId>
+			<version>0.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.7</version>
+			 <scope>provided</scope> 
+		</dependency>
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk15on</artifactId>
+			<version>1.54</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.11.2</version>
+		</dependency>
+		<!--ActiveMq-->
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-core</artifactId>
+			<version>5.7.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-pool</artifactId>
+			<version>5.13.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jms</artifactId>
+			<version>4.3.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>4.3.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>3.6.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+			<version>1.10.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>com.swetake.util</groupId>
+			<artifactId>Qrcode_swetake</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper</artifactId>
+			<version>4.1.6</version>
+		</dependency>
+
+ 
+	</dependencies>
+
+	<!--<repositories>
+		<repository>
+			<id>local-public-repository</id>
+			<name>Local Public Maven Repository Group</name>
+			<url>http://172.16.88.243:8081/repository/maven-public/</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>plug-repo-local</id>
+			<name>plug-central</name>
+			<url>http://172.16.88.243:8081/repository/maven-public/</url>
+			<releases>
+				<updatePolicy>never</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<layout>default</layout>
+		</pluginRepository>
+	</pluginRepositories>-->
+
+	<build>
+		<finalName>dt2-provider</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<targetPath>${project.build.directory}/classes</targetPath>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>**/*.xml</include>
+					<include>**/*.properties</include>
+					<include>**/*.cer</include>
+					<include>**/*.pfx</include>
+				</includes>
+			</resource>
+			<resource>
+				<targetPath>${project.build.directory}/classes/META-INF/spring</targetPath>
+				<directory>src/main/resources/spring</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>application-context.xml</include>
+				</includes>
+			</resource>
+		</resources>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-dependency-plugin</artifactId>
+										<versionRange>[2.0,)</versionRange>
+										<goals>
+											<goal>copy-dependencies</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+
+			<!-- 打包jar文件时，配置manifest文件，加入lib包的jar依赖 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<classesDirectory>${project.build.directory}/classes</classesDirectory>
+					<archive>
+						<manifest>
+							<mainClass>com.alibaba.dubbo.container.Main</mainClass>
+							<!-- 打包时 MANIFEST.MF文件不记录的时间戳版本 -->
+							<useUniqueVersions>false</useUniqueVersions>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+						</manifest>
+						<manifestEntries>
+							<Class-Path>.</Class-Path>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+			
+			<!-- 把依赖的jar包,打成一个lib文件夹 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<type>jar</type>
+							<includeTypes>jar</includeTypes>
+							<outputDirectory>
+								${project.build.directory}/lib
+							</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
+					<compilerArguments>
+						<verbose />
+						<bootclasspath>${env.JAVA_HOME}/jre/lib/rt.jar;${env.JAVA_HOME}/jre/lib/jce.jar</bootclasspath>
+						<extdirs>${project.basedir}/lib</extdirs>
+					</compilerArguments>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+
+	<distributionManagement>
+
+		<repository>
+
+			<id>jqcx-releases</id><!--记住这个id，releases代表我们要发布的正式版 -->
+
+			<name>Doc Release Repository</name><!--name随便写，是给自己看的,就算不写也没影响 -->
+
+			<url>http://172.16.88.243:8081/repository/maven-releases</url><!--这个url是私服上存放所发布的正式版jar包的地址 -->
+
+		</repository>
+
+		<snapshotRepository>
+
+			<id>jqcx-snapshots</id><!--记住这个id，snapshots代表我们要发布的快照版，也就是开发板 -->
+
+			<url>http://172.16.88.243:8081/repository/maven-snapshots</url><!--这个url是私服上存放正在开发的快照版jar包的地址 -->
+
+		</snapshotRepository>
+
+	</distributionManagement>
+
+</project>

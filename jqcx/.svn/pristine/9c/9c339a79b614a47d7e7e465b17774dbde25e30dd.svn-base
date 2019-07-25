@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:websocket="http://www.springframework.org/schema/websocket"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/websocket
+    http://www.springframework.org/schema/websocket/spring-websocket.xsd">
+
+
+    <mvc:annotation-driven/>
+
+    <!-- 配置哪些是静态资源，缺省Servlet 直接返回 -->
+    <mvc:resources mapping="/upload/**" location="/upload/" cache-period="31556926"/>
+    <mvc:resources mapping="/updateApk/**" location="/updateApk/" cache-period="31556926"/>
+
+
+
+    <!-- aspectj aop启用CGliB代理 -->
+    <aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true"/>
+    <context:component-scan base-package="com.xm.xmap1702044.commons.scan;
+    com.xm.xmap1702044.interceptor;
+    com.xm.xmap1702044.model
+"/>
+
+    <!-- Spring mvc 拦截器  -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!-- 需要拦截的部分 -->
+            <!--<mvc:mapping path="/aaa" />-->
+            <mvc:mapping path="/**" />
+            <!-- 不需要拦截的部分 eg.短信 验证码 注册 等 -->
+            <mvc:exclude-mapping path="/sysManage/**"/>
+            <mvc:exclude-mapping path="/version/**"/>
+            <mvc:exclude-mapping path="/tradePay/**"/>
+            <mvc:exclude-mapping path="/FoodEncyService/**"/>
+            <mvc:exclude-mapping path="/driver/updateDriverOfficialOrder"/>
+            <mvc:exclude-mapping path="/driver/insertDriverLocationTest"/>
+            <mvc:exclude-mapping path="/unionPay/unionPayCallBack"/>
+            <mvc:exclude-mapping path="/**-**/**"/>
+
+
+            <bean class="com.xm.xmap1702044.interceptor.CsrfInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!-- aspectj aop启用CGliB代理 -->
+    <aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true"/>
+    <context:annotation-config/>
+
+    <context:component-scan base-package="com.xm.xmap1702044.controller"
+                            use-default-filters="false">
+        <context:include-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller" />
+        <context:include-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+    </context:component-scan>
+
+
+    <!--WebSocket拦截器-->
+
+
+
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="false">
+            <!--  将StringHttpMessageConverter的默认编码设为UTF-8 -->
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8"/>
+            </bean>
+            <ref bean="jacksonMessageConverter" />
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>text/html;charset=UTF-8</value>
+                <value>application/json;charset=UTF-8</value>
+                <value>text/plain;charset=UTF-8</value>
+            </list>
+        </property>
+        <property name="objectMapper" ref="jacksonObjectMapper" />
+    </bean>
+
+    <!-- 文件上传部分-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"></property>
+    </bean>
+
+</beans>

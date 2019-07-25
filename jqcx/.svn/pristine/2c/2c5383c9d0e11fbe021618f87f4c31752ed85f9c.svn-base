@@ -1,0 +1,7 @@
+#weixin apy
+#appid=wxc39aebb5ae0d50e7
+#mch_id=1320324801
+appid=wx21bb0ab1f1e98c73
+mch_id=1494162402
+#notify_url=http://61.138.179.142:8083/jQiCar/tradePay/notifyWx
+notifyWx=https://xq.huizhigukeji.com/jQiCar/tradePay/notifyWx

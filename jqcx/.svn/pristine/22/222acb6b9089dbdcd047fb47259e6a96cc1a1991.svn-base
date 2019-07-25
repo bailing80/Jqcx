@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.xmwm</groupId>
+		<artifactId>dt2</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>dt2-common</artifactId>
+	<packaging>jar</packaging>
+	<name>dt2-common</name>
+
+	<dependencies>
+
+
+    </dependencies>
+	<repositories>
+		<repository>
+			<id>local-public-repository</id>
+			<name>Local Public Maven Repository Group</name>
+			<url>http://172.16.88.243:8081/repository/maven-public/</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>plug-repo-local</id>
+			<name>plug-central</name>
+			<url>http://172.16.88.243:8081/repository/maven-public/</url>
+			<releases>
+				<updatePolicy>never</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<layout>default</layout>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
+	<distributionManagement>
+
+		<repository>
+
+			<id>jqcx-releases</id><!--记住这个id，releases代表我们要发布的正式版 -->
+
+			<name>Doc Release Repository</name><!--name随便写，是给自己看的,就算不写也没影响 -->
+
+			<url>http://172.16.88.243:8081/repository/maven-releases</url><!--这个url是私服上存放所发布的正式版jar包的地址 -->
+
+		</repository>
+
+		<snapshotRepository>
+
+			<id>jqcx-snapshots</id><!--记住这个id，snapshots代表我们要发布的快照版，也就是开发板 -->
+
+			<url>http://172.16.88.243:8081/repository/maven-snapshots</url><!--这个url是私服上存放正在开发的快照版jar包的地址 -->
+
+		</snapshotRepository>
+
+	</distributionManagement>
+
+</project>

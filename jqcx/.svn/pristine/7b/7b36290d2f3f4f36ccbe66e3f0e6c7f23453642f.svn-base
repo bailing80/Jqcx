@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/JQiCar/JQiCar.iml" filepath="$PROJECT_DIR$/JQiCar/JQiCar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dt2.iml" filepath="$PROJECT_DIR$/dt2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dt2-common/dt2-common.iml" filepath="$PROJECT_DIR$/dt2-common/dt2-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dt2-provider/dt2-provider.iml" filepath="$PROJECT_DIR$/dt2-provider/dt2-provider.iml" />
+    </modules>
+  </component>
+</project>
